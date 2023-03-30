@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Creating An API</h1>
+                <p>
+                    There are a couple of variables to consider when creating an API. You need to know what the type
+                    of API it needs to be, what it will do, how it will do it, how to deploy it and where to deploy it.
+                    Of cause, there is more to this, but this is just the basics. 
+                </p>
+                <p>
+                    What my API should be is a rest API, it will return basic system usage of the system when called, it
+                    will be made with Python Flask with the psutil package, it will be deployed with Gunicorn and it will
+                    be deployd on my VPS. I want the API to only be accessible locally on the VPS. Meaning if you are trying
+                    to call it from outside the VPS, nothing will happen. Only processes on the VPS can call it.
+                </p>
+                <p>
+                    To run the API, simply do <code>gunicorn -b 127.0.0.1:9000 app:app</code>. The first command <code>gunicorn</code>
+                    runs the program <code>gunicorn</code>. The argument <code>-b</code> tells gunicorn to not expose the IP and port to the 
+                    outside of the network. The first part of the argument <code>127.0.0.1:9000</code> is the IP, the <code>:</code> is 
+                    meant to tell where the IP ends and the port start. The second part <code>9000</code> is the port number for the 
+                    API to use. The last agument <code>app:app</code> is to tell wich Python scripts to use. The script is called <code>app</code>,
+                    and is of type <code>app</code>.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

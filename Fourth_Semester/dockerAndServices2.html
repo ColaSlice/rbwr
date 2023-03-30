@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Opsætning Af Docker Vol. 2. Electric Boogaloo</h1>
+                <p>
+                    Over et godt stykke tid, har min microservice proxy haft svært ved at ramme min login service,
+                    så snart at proxy'en bliver kørt fra en Docker container. Så jeg har holdt ud med at køre dem
+                    i Docker, når jeg skal teste dem. Men nu er det blevet alt for træls ikke at være i stand til 
+                    at kunne køre dem i Docker, uden nogle problemer.
+                </p>
+                <p>
+                    Hvorfor?? Hvorfor kan proxy'en ikke se login servicen?
+                </p>
+                <p>
+                    Det tog mig ret lang tid før jeg faktisk fandt ud af hvorfor. Efter at læse ca 20 Stack Overflow
+                    artikler, fandt jeg synderen. Siden at API'et køre i en container, kan den kun se sit eget netværk.
+                    Selvom jeg exposer adskillige porte i min Docker fil, ville den ikke kunne finde de andre API'er.
+                    Man kunne også bare kalde host ip'en som API'et køre på, men det virker heller ikke. Se det er 
+                    endnu mere mærkeligt. Når API'et skal lave en POST request til en IP, skal den kunne se den ip,
+                    men det kan API'et ikke, da den ligger i en container, og kan kun se sin egen ip.
+                </p>
+                <p>
+                    Hvordan fik jeg løst problemet?
+                </p>
+                <p>
+                    <code>docker network create data-network</code>. Derefter køre min container sådan her:
+                    <code>sudo docker run --rm --net=data-network -p 5002:5002 prod/proxyservice:testing</code> .
+                    Det vi gør er, at vi laver et nyt netværk, som containeren kan se, som giver adgang til
+                    resten af host systemet. Det virker esentielt som en "bro" mellem containerens host netwærk,
+                    og den rigtige hosts netwærk.
+                </p>
+                <img src="Oof.svg">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 11.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

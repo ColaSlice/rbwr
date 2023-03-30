@@ -1,0 +1,11 @@
+/* TEAM */
+Developer: Rasmus Rasmussen
+contact: rasmusbwr.prof@gmail.com
+Location: Denmark
+
+/* THANKS */
+Thanks to me
+
+/* SITE */
+Last update: 2022/12/21
+Standards: HTML5, CSS

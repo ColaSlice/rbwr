@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Basic Boilerplate Commands For When I Install A Linux Desktop</h1>
+                <p>
+                    After installing the Linux distro of my choice, I run a couple of commands and change a few files,
+                    to get my system to work a bit more the way I like it to run. It can be how it handles swap files,
+                    how it handles <a href="https://wiki.archlinux.org/title/Swap#Swappiness">swappiness</a>, changes to my shell and more.
+                </p>
+                <p>
+                    For the swap, I change the <code>/etc/sysctl.conf</code> file. The default can vary between distros. I chose to use 30, since
+                    I use zram on my system. It's about 2x faster (if not more) than normal swap, depending on the compression algorithm you choose.
+                </p>
+                <code>
+                    vm.swappiness=30
+                </code>
+                <p>
+                    To change the zram settings, locate your zram-generator file. It's usually <code>/etc/systemd/zram-generator.conf</code>.
+                    Depending on the amount of physical RAM you have, you should roughly choose half of that amount for the zram device. I chose
+                    8 GB, even though I have 32 GB. I don't think I'll ever get over 32 GB used, but it's better to be safe than sorry. The default 
+                    compression-algorithm was <code>lzo-rle</code>, that's fine and all, but I want a bit more compression, since I have a lot of cores
+                    that can do the compression. So I chose <code>lz4</code>, since it has a better compression ratio. To check if zram is active, just
+                    run this command <code>zramctl --raw</code>. Your output should look something like this: 
+                </p>
+                <code>NAME ALGORITHM DISKSIZE DATA COMPR TOTAL STREAMS MOUNTPOINT</code>
+                <br>
+                <code>/dev/zram0 lz4 8G 4K 69B 4K 32 [SWAP]</code>
+                <br>
+                <pr>
+                    Now to configure the zram, insert this into the <code>/etc/systemd/zram-generator.conf</code> file:
+                </pr>
+                <br>
+                <code>[zram0]</code>
+                <br>
+                <code>max-zram-size=4096</code>
+                <br>
+                <code>compression-algorithm=lz4</code>
+                <p>
+                    There are some services I don't need to run, at all. I don't have a printer, I don't use bluetooth tethering and I don't
+                    have a NAS on my network, so these services can be safely shut down:
+                </p>
+                <code>systemctl stop ModemManager.service</code>
+                <br>
+                <code>systemctl disable ModemManager.service</code>
+                <br>
+                <code>systemctl mask ModemManager.service</code>
+                <br>
+                <code>systemctl stop cups.service</code>
+                <br>
+                <code>systemctl dissable cups.service</code>
+                <br>
+                <code>systemctl mask cups.service</code>
+                <br>
+                <code>systemctl stop nfs-client.target</code>
+                <br>
+                <code>systemctl stop nfs-server.service</code>
+                <br>
+                <code>systemctl disable nfs-client.target</code>
+                <br>
+                <code>systemctl disable nfs-server.service</code>
+                <br>
+                <code>systemctl mask nfs-server.service</code>
+                <br>
+                <code>systemctl mask nfs-server.client</code>
+                <br>
+                <code>systemctl stop NetworkManager-wait-online.service</code>
+                <br>
+                <code>systemctl disable NetworkManager-wait-online.service</code>
+                <br>
+                <code>systemctl mask NetworkManager-wait-online.service</code>
+
+                <p>
+                    And my grub config file <code>/etc/default/grub</code> I change the "<code>GRUB_CMDLINE_LINUX=</code>" line.
+                    The default looks something like this:
+                </p>
+                <code>
+                    GRUB_CMDLINE_LINUX="rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset=1 
+                    initcall_blacklist=simpledrm_platform_driver_init rhgb quiet rd.driver.blacklist=nouveau modprobe.blacklist=nouveau 
+                    nvidia-drm.modeset=1 initcall_blacklist=simpledrm_platform_driver_init"
+                </code>
+                <p>
+                    That's a pretty long line huh. Let's slim it down. There is some douplicate commands. Let's remove those.
+                    It will now look like this:
+                </p>
+                <code>
+                    GRUB_CMDLINE_LINUX="rd.driver.blacklist=nouveau modprobe.blacklist=nouveau nvidia-drm.modeset=1 
+                    initcall_blacklist=simpledrm_platform_driver_init rhgb quiet"
+                </code>
+                <p>
+                    Way better, yea? Yeah. One thing to note is that I'm running Fedora, so the "<code>rhgb</code>" part is something custom
+                    from RedHats side. And don't forget to update the grub config with <code>sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code>.
+                    Oh, and one other thing, it's recomended to change the resolution of the grub menu to the default resolution. And also the 
+                    color depth. There is no reason to render grub at 4k resolution and 300 billion colors when it's just black and white text 
+                    being displayed. Plus when rendering grub at default resolution, it loads way faster.
+                </p>
+                <code>
+                    GRUB_GFXMODE=640x480x8
+                </code>
+                <br>
+                <p>
+                    Some sources
+                    <ol>
+                        <li>https://www.kernel.org/doc/html/latest/admin-guide/blockdev/zram.html</li>
+                        <li>https://lonesysadmin.net/2013/12/22/better-linux-disk-caching-performance-vm-dirty_ratio/</li>
+                    </ol>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

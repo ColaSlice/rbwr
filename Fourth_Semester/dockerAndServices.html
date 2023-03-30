@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Opsætning Af Docker</h1>
+                <p>
+                    For at lave et Docker image, skal vi først lave en Docker konfigurationsfil, til det image
+                    vi laver. Også kaldet en Docker fil. Den indeholder instruktion til, hvordan det Docker
+                    image skal virke og se ud. En Docker fil kan se sådan ud (se billedet nedenunder). På linje
+                    1 henter vi et base image og giver den et navn, så vi kan referere til den senere. Det er 
+                    Docker images som kan indeholde biblioteker og runtimes, som vores microservice skal bruge. 
+                    I dette tilfælde er det dotnet sdk 7.0.
+                </p>
+                <p>
+                    På linje 2 difinere vi den mappe, som dotnet kan læse vores program fra. Linje 3 kopier vi
+                    alt fra den mappe, som Docker filen ligger i, til den mappe, vi deffinerede på linje 2.
+                    På linje 4 henter vi alle biblioteker, som vores program skal bruge. På linje 5 compiler
+                    vi programmet. Og for dotnet til at compile det til produktionskode. <code>/app</code>
+                    fortæller hvilken mappe, som programmet skal endnu ud i.
+                </p>
+                <p>
+                    På linje 9 gør vi det samme som på linje 1, men vi bruger aspnet 7.0 istedet for dotnet sdk.
+                    Det gør vi fordig at aspnet kan bruge de samme biblioteker fra dotnet sdk, men vi behøver
+                    ikke at have adgang til alle biblioteker, når vi køre et program, som vi lige har compilet.
+                    På linje 10 deffinere vi hvor vi skal køre programmet fra, når vi starter vores Docker image.
+                    Linje 11 kopiere vi alt fra vores build mappe <code>--from=build /app</code> til den mappe
+                    vi er i nu, <code>./</code> som er <code>/app</code> mappen.
+                </p>
+                <p>
+                    linje 13 <code>EXPOSE 5002</code> fortæller vores Docker image, at port 5002 er åben. Linje 15
+                    fortæller Docker, at når vi køre det her image, så skal den køre kommandoen <code>dotnet</code>
+                    med parameteren <code>MicroServiceProxy.dll</code>.
+                </p>
+                <img src="docker.png">
+                <br>
+                <p>
+                    Nu handler det om at få lavet det Docker image, ud fra vores konfigurationsfil. Ved at åbne en
+                    terminal i vores mappe, som indeholder den Docker fil, som vi skal bruge, skriver jeg i terminalen
+                    <code>sudo docker build --rm -t prod/proxyservice:testing .</code>. Her bruger jeg bash fra <code>/usr/bin/bash</code>.
+                    <code>sudo</code> bruges til at køre Docker some administrator (sudo står for Super User Does).
+                    <code>docker build</code> siger at vi skal bygge et Docker image ud fra den Docker fil, vi har lavet.
+                    <code>--rm</code> fortæller Docker, at vi skal fjerne de midlertidige filer, som Docker opretter, når man
+                    lave et image ud fra en Docker fil. <code>-t</code> fortæller Docker, at vi skal give dette image et "tag",
+                    eller et navn, så det er næmmere at finde det image, når Docker er færdig med at lave det.
+                    <code>prod/proxyservice</code> er navnet på det image. Og <code>:testing</code> er den branch, som burde være
+                    den samme branch, som man bruger i sit git repository, for det koden man ligger in i sit Docker image.
+                    <code>.</code> betyder at vi bygger det Docker image, i den mappe, som Docker filen ligger i. Det var ret 
+                    meget at skrive om.
+                </p>
+                <p>
+                    Når vi har kørt kommandoen, vil vores output se nogenlunde ud, som i billedet for neden.
+                </p>
+                <img src="docker2.png">
+                <p>
+                    Lige nu har vi to services. En loginservice, og en proxyservice. For at køre loginservice, så bruger vi kommandoen: <code>sudo docker run --rm -p 5001:5001 -e ASPNETCORE_URLS=http://+:5001 prod/loginservice:testing</code>.
+                </p>
+                <p>
+                    For at køre proxyservicen, så bruger vi kommandoen: <code>sudo docker run --rm -p 5002:5002 -e ASPNETCORE_URLS=http://+:5002 prod/proxyservice:testing</code>
+                    Og så kan vi bare bruge vores program, uden nogle problemer.
+                </p>
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 9.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

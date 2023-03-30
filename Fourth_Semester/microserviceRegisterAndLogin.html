@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Implimentering Af Registrering- Og Login Funktioner Ved Hjælp Af JWT</h1>
+                <p>
+                    Vi har en hjemmeside, og den skal kunne understøtte, at man registere og logge ind. Det kræver at vores
+                    microservice kan håndtere registrering og logge ind-funktionerne. Inden at vi faktisk Implimentere 
+                    funktionerne, så skal vi designe dem først. Fra start til slut. Min første iteration var ikke alt for 
+                    fed, da den metode, er ret usikker og nok også ret u-effiktiv.
+                </p>
+                <p>
+                    Som vi kan se på underliggende billede, så er den ret simpel. <code>CONTENT</code> er bare en string af
+                    navn, alder, email og potientielt en license. Denne string ville ligne dette: <code>"Steve Jobs:45:SteveJobs@outlook.com:License123"</code>.
+                    <code>LoginToken</code> er faktisk bare det samme som <code>CONTENT</code>, men når det er blevet gemt i
+                    databasen, så kalder vi det en token.
+                </p>
+                <img src="flowchart.png"></img>
+                <p>
+                    Som vi kan se på billedet, så er det lidt rodet, og det er heller ikke det mest konsistente flow af
+                    servicen. Det skal vi have gjort noget ved. Ved at lave en DTO (Data Transfer Object), kan vi 
+                    standardisere hvordan vi sender data. Og ved at bruge en JWT token, istedet for vores ejen janky
+                    token, kan vi også standardisere hvordan vi håndtere identiteter i hele systemet.
+                </p>
+                <p>
+                    Et nyt flowdiagram kan således laves ud fra vores nye kriterier. Som vi kan se, så er dette flowchart
+                    mere konsistent og overskueligt. Det eneste job ProxyController har, er at redirecte kald fra 
+                    klienten til de andre services. UserDto består af 4 dele: Username, Email, Password og License.
+                    Siden at det hele køre over Https, så er det krypteret, og sikkert at sende som plaintext.
+                    Men lige så snart at det password rammer LoginService, så bliver det hashet
+                </p>
+                <img src="flowchart2.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservice 2.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

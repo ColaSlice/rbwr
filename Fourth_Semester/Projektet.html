@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Projektet og Hjemmeside</h1>
+                <p>
+                    React Router er essentiel når det gælder udvikling af vores hjemmeside, da vi bruger flere
+                    sider, hvorpå brugeren kan navigere rundt. Når man logger ind på siden, bliver brugeren
+                    redirected til en privat side. Lige nu, er den private side åben. Da det mest af alt er 
+                    prototype kode lige nu, så bruger hjemmesiden ikke nogen private router endnu. Under ses 
+                    koden til registrering af gyldige sider. Fra linje 20 til 23 bliver siderne (React components)
+                    registreret. 
+                </p>
+                <img src="code10.png">
+                <p>
+                    På logindside, når man trykker på logind knappen, tjekker vi først om det er en bruger allerede
+                    logget ind på siden, ved at kigge i browserens local storage. Senere burde jeg nok tjekke om 
+                    den data i local storage, stemmer op med dataen i loginformen.
+                </p>
+                <img src="code11.png">
+                <p>
+                    Hvis der er en item i local storage som indeholder en bruger, så returnere true, og springer
+                    over alle API kald til microservicet og åbner den private side. Se billedet under.
+                </p>
+                <img src="code12.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">React.js / JavaScript 7.</a></li>
+                    <li><a href="sources.html">React.js / JavaScript 8.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

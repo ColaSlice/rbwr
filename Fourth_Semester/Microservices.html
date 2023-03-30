@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Opsætning af Ngninx og Let's Encrypt med Certbot</h1>
+                <p>
+                    For at kunne hoste en side og microservice på en VPS, er det andbefalet at benytte en 
+                    reverse proxy. Ved brug af en reverse proxy, kan man hoste flere services og sider
+                    på den samme ip addresse og domænenavn, med adgang til det åbne internet.
+                </p>
+                <p>
+                    Før at vi kan tilgå vores side, så er vi nødt til at lave en konfigurationsfil. 
+                    Det første vi gør er, at ssh'e ind til vores VPS, og installere nginx. Derefter
+                    laver vi en fil til vores side. <code>nano /etc/nginx/conf.d/nodeapp.conf</code>.
+                    Se billedet nedenunder. <code>server_name</code> er navnet på den side, vi vil
+                    køre. <code>location /</code> er hvilken port, som vores side er hostet på.
+                    <code>listen [::]:443 ssl</code> og <code>listen 443 ssl</code>. Den første linje
+                    linje lytter til porten til ipv6 adressen til ssl certifikatet. Og den anden linje
+                    lytter til porten til ipv4 adressen til ssl certifikatet. De to næste linjer pejer
+                    på selve ssl certifikaterne.
+                </p>
+                <img src="nginx.png">
+                <p>
+                    <code>listen 80;</code> og <code>listen [::]:80;</code> er porten som nginx lytter
+                    på, og returnere siden som er blevet deffineret tidligere.
+                </p>
+                <img src="nginx2.png">
+                <p>
+                    De linjer som stopper med <code>managed by Certbot</code>, er dele af konfigurationsfilen
+                    som er blevet tilføjet af et program, Certbot. Den generere ssl certifikater til sin 
+                    VPS og domæne.
+                </p>
+                <p>
+                    Ny skal vi bare starte siden, og man vil kunne åbne en browser, og åbne side.
+                </p>
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 3.</a></li>
+                    <li><a href="sources.html">Microservices 4.</a></li>
+                    <li><a href="sources.html">Microservices 5.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

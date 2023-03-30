@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Fikse Et Memory Leak I Min Microservice</h1>
+                <p>
+                    Et memory leak er når ens apllikation ikke tilbagekalder og disposer objekter, som tidligere er blevet alokkeret.
+                    Hvorfor bliver objekterne ikke tilbagekaldt? Det kan være hvis man ikke designer sine klasser ordentligt. F.eks
+                    hvis man hele tiden laver nye objekter, uden at lave en dispose på dem. Nogle objekter bliver automatisk
+                    disposed, andre gør ikke. Se nedenstående billede.
+                </p>
+                <img src="code7.png">
+                <p>
+                    Her ses at vi bruger et using statement. Den sørger selv for, at dispose <code>SqliteDataReader</code> objektet.
+                    Men én ting den ikke sørger får, er at dispose forbindelsen til databasen. Så hver gang vi køre metoden, vil
+                    en ny <code>SqliteConnection</code> blive oprettet. Og den bliver aldrig disposed, da vi ikke kalder dens 
+                    dispose metode. Det er i øvrigt det samme ved <code>SqliteCommmand</code>. Se nedenstående billede.
+                </p>
+                <img src="code8.png">
+                <p>
+                    Som vi kan se her, så disposer vi de objekter, som ikke bliver automatisk disposed af using udtrykket.
+                    Når jeg starter min microservice, så bruger den ca. 48 MB ram fra starten. Efter at kalde 10 POST requests
+                    til den, vil RAM forbruget stige til 58 MB, hvor den så ikke vil stige efter. Dog er der et andet problem med,
+                    at den alrig vil dealokere ned under 58 MB.
+                </p>
+                <p>
+                    Med hjælp fra en anden gruppe, har jeg også fået lavet nogle interfaces, og jeg injecter også nogle klasser.
+                    Se nedestående billede.
+                </p>
+                <img src="code9.png">
+                <br>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

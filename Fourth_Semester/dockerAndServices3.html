@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Opsætning Af Docker Vol. 3. It just works</h1>
+                    <p>
+                        Der har været nogle få problemer, når det gælder kommunikation mellem Docker images. I starten
+                        kunne jeg køre én service i et Docker image, og den anden service køre uden for Docker.
+                        Det var mest af alt når jeg skulle teste. Men hvis jeg skulle køre begge services i Docker,
+                        var det lidt anderledes. I en anden <a href="https://rbwr.dk/Fourth_Semester/dockerAndServices2.html">blog post</a>
+                        fik jeg løst det problem.
+                    </p>
+                    <p>
+                        Men nu når jeg også skal sende queue messages til RabbitMq, fra mine services, som også køre i
+                        Docker, så havde jeg et mindre problem. Jeg ville få en lang error message, med at min service
+                        ikke kan kontakte den specificeret RabbitMq endpoint. Her dukker de samme problem op, som jeg 
+                        fik fra min tidligere blog post. Nu skal jeg bare gøre nogenlunde det samme med min RabbitMq
+                        image.
+                    </p>
+                    <p>
+                        Problem: Jeg bruger <code>sudo docker-compose up</code> , når jeg skal lave et image til RabbitMq
+                        og køre den derefter. Man kan nok godt køre RabbitMq manuelt, bagefter man har lavet det image.
+                        Dog ville jeg gøre det på den "rigtige" måde. Ved at ændre docker-compose.yml filen, til at
+                        tilgå det Docker Network, jeg lavede i en tidligere blogpost. Så vil docker-compose.yml se såddan ud: 
+                    </p>
+                    <img src="docker3.png">
+                    <p>
+                        Som vi kan se på linje 17, så laver vi et netwærk og giver den navnet <code>default</code>. På linje
+                        19 fortæller vi Docker, at dette image skal bruge et ellerede eksisterende netwærk, og fortæller
+                        at den ligger eksternt. På linje 14 fortæller vi vores RabbitMq service, at den skal bruge netværket
+                        <code>default</code>. Nu når jeg køre <code>sudo docker-compose up</code>, vil den nu bruge det delte
+                        Docker Network, som de andre services også bruger.
+                    </p>
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 11.</a></li>
+                    <li><a href="sources.html">Microservices 12.</a></li>
+                    <li><a href="sources.html">Microservices 13.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Setting Up My VPS And Website</h1>
+                <p>
+                    The first thing I had to do, was to find a place to actually host my website. 
+                    And that's by getting a VPS. With the high energy prices and my slow internet, I chose to get an unmanaged Linux VPS. 
+                    Why an unmanaged Linux VPS? Because it's the cheapest, it's Linux, I have root access and I know how to use it. 
+                    Unfortunally for me, it's only one core and 1 gigabyte of RAM (900 MB)</p>
+                <p>
+                    So, what to do now? We set up up certbot with Let's Encrypt, to enable SSL certification on my VPS and website. Aint 
+                    no way I use standard un-encrypted http.
+                    AIght, now with that out of the way, we will now install the apache2 package, since I use Ubuntu 20.04. WHy use that
+                    version? Because that's the one that came with my vps.
+                </p>
+                <p>
+                    Ez right? I guess yeah. But now the annoying part, to actually make the site. I chose to follow the 
+                    <u><a href="https://motherfuckingwebsite.com/">Mother Fucking Website</a></u> philosophy. So I'll just use plain HTML5 
+                    and CSS. It's a bit bothersome, but I don't mind learning new things.
+                </p>
+                <p>
+                    It took me an hour to center this div. This is going to be fun... Oh, and don't forget to include a humans.txt file in 
+                    your root path of your website. If you use apache2, then the default root path is <code>/var/www/html/</code>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

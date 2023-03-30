@@ -1,0 +1,70 @@
+.CenterDiv2 {
+    margin-left: 13%;
+    width: 75%;
+}
+
+.Test {
+    position: relative;
+    text-align: left;
+    word-break:normal;
+}
+
+table, th, td {
+    border:1px solid black;
+}
+
+.FlexDirection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.MarginLeft {
+    margin-left: 50px;
+}
+
+code {
+    font-family: monospace;
+    color: crimson;
+    padding: 2px;
+    font-size: 128%;
+}
+
+.CodeBox {
+    border:1px solid rgb(195, 195, 195);
+    background-color:#e2e2e2;
+    white-space: pre-line;
+    padding:10px;
+    font-size: 128%;
+    display: inline-block;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.hr4 {
+    border: 0;
+    border-top: 2px solid #CCC;
+    border-bottom: 1px dashed #CCC;
+    height: 3px;
+}
+
+.hr4Reversed {
+    border: 0;
+    border-bottom: 2px solid #CCC;
+    border-top: 1px dashed #CCC;
+    height: 3px;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.bodyBox {
+    background-color: white;
+    margin-left: 25%;
+    margin-right: 25%;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Læringsplan</h1>
+                <p>
+                    Min læringsplan for uge 9-10. Disse mål ligner nok lidt de samme som sidste uge, men nu er vi stadig i gang med opstartsperioden.
+                </p>
+                <h2>Mål for uge 9 og 10</h2>
+                <h3>React.js</h3>
+                <ul>
+                    <li>Få implimenteret en registrerings- og loginfunktion.</li>
+                    <li>Få fikset den [object Undefined] fejl jeg for, når jeg registrere en bruger fra hjemmesiden af.</li>
+                </ul>
+                <h3>Microservices</h3>
+                <ul>
+                    <li>Få fikset det memory leak jeg fik introduceret i uge 8.</li>
+                    <li>Få konfigureret SQLite, så den bruger mindre RAM.</li>
+                    <li>Få lavet en Interface for de resterende klasser, som ikke har en endnu.</li>
+                </ul>
+
+                <h2>Målbare resultater</h2>
+                <h3>React.js</h3>
+                <ul>
+                    <label>Hvordan</label>
+                    <li>Lave en React App med npx, og lave 3 sider. En forside, login side og registrerings side.</li>
+                    <li>Hente og sende login oplysninger til min microservice.</li>
+                    <li>Redirect til en privat side efter at have trykket på login eller registrer.</li>
+                </ul>
+                <ul>
+                    <label>Evaluering</label>
+                    <li>Efter at have lavet de 3 sider, og fået implimenteret POST metoder til login og registrering, vil jeg sige at det resultat 1 og 2 er godkendt.</li>
+                    <li>Efter at have undersøgt internettet et stykke tid, fandt jeg nogle posts omkring redirect og navigering, som jeg fik impplimenteret. Dette resultat er også godkendt.</li>
+                </ul>
+                <h3>Microservices</h3>
+                <ul>
+                    <label>Hvordan</label>
+                    <li>Ved at benytte mig af breakpoints og en profiler (JetBrains DotMemory profiler), vil jeg kunne lokalisere hvor i koden at memoryleaket opstår.</li>
+                    <li>Ved at køre nogle .dispose metoder fra SQLite objektet, så vil den fjerne mest af de objekter, som en har allokeret.</li>
+                    <li>Ved at lave nogle interface klasser til de klasser som ikke har nogle interfaces endnu.</li>
+                </ul>
+                <ul>
+                    <label>Evaluering</label>
+                    <li>Efter at have fundet stederne i min kode, som ikke disposer objekter på en ordenlig måde, og ændre lidt i det. Testede jeg om det gjorden en forskel. Det gjorde det. Så det er godkendt.</li>
+                    <li>Efter at dipose SQLite på den rigtige måde, og teste at der er en målbar forskel, vil jeg sige at dette mål også er godkendt.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

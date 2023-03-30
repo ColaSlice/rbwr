@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>JavaScript madness</h1>
+                <p>
+                    Personligt, så har jeg ikke været en stor fan af JavaScript, men jeg er bange for at jeg er nødt 
+                    til benytte JavaScript på et tidspunkt i min professionelle kariere. Så jeg hoppede lidt ned i 
+                    den dybe ende med en "begynder" tutorial i React.js. (min første fejl)
+                </p>
+                <p>
+                    Så den tutorial jeg benyttede mig af, var at lave en basic lommeregner i React.js. Så uden at 
+                    lyde som en ædelagt plade, skal vi så ikke bare begynde med forklaringen. React.js (og React Native)
+                    er JS frontend frameworks som kan gøre webudvikling mere overskueligt. Når man laver sit program
+                    for første gang, bruger man kommandoen <code>npx create-react-app calculator-app</code>.
+                </p>
+                <p>
+                    <code>npx</code> er en kommando som følger med node. <code>create-react-app</code> er et argument
+                    som npx bruger til at downloade de nødvændie biblioteker og filer, til at opsætte og køre et 
+                    React.js program. <code>calculator-app</code> er navnet på det program, vi lige har lavet. En
+                    ting man skal huske på, når man bruger <code>create-react-app</code> er, at man ikke må skrive med
+                    store bogstaver. 
+                </p>
+                <p>
+                    Lad os få kigget på noget kode. JavaScript har en lidt sjov måde at importere bibloteker og klasser.
+                    Hvis det er en fil, som ikke har .js extension, så skal man skrive hele filnavnet. Men hvis det er en
+                    .js fil, så bare skriv navnet på filen, uden fil extension. Koden som ses her er fra <code>app.js</code>.
+                    På linje 4 ses, at vi importere <code>useReducer</code> fra <code>react</code> bibloteket. 
+                    <code>{ }</code> i sine import-statement betyder, at vi kun kan importere den specifike kode, der ligger
+                    i et <code>export</code> felt. Så man får kun det specifike kode, istedet for at hente
+                    noget tilfældigt fra koden som også har det samme navn man importere. I dette tilfælde, så importere vi
+                    klassen <code>useReducer</code>, da den klasse er blevet eksporteret.
+                </p>
+                <img src="code1.png">
+                <br>
+                <p>
+                    I denne kodeblok, ser vi på første linje at vi definere en funktion i <code>app.js</code>. På linje 128 
+                    til 131 kan vi se noget syntaktisk sukker. Det som bliver gjort her, er at vi laver et array som består 
+                    af en blanding af 3 objeker og en funktion. De 3 objekter er <code>{currentOperand, previousOperand, operation}</code>.
+                    Den ene funktion er så bare <code>dispatch</code>. Så vidt jeg har forstået, så er dispatch funktionen 
+                    in-build i JS. Så giver vi objekter og funktionerne i arrayet værdierne fra funktionen 
+                    <code>
+                        useReducer(
+                        reducer,
+                        {}
+                      )</code>,
+                    hvor den retunere værdier baseret på resultatet af <code>reducer</code> og et tomt objekt <code>{}</code>.
+                    Det føles lidt "hacky".
+                </p>
+                <img src="code2.png">
+                <br>
+                <p>
+                    [TODO] Resten af dokumentet.
+                </p>
+                <ol>
+                    <li><a href="sources.html">React.js / JavaScript 1.</a></li>
+                    <li><a href="sources.html">React.js / JavaScript 2.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>
