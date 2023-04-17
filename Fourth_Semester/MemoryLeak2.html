@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>MemoryLeak 2</h1>
+                <p>
+                    Jeg havde kinda fikset det memory leak jeg havde tidligere, men efter at have implimenteret mange flere functioner i min <a href="https://github.com/ColaSlice/MicroServices/commit/d59698b72b5a25c8bb720d3a5dda4e964cf5efb8">microservice</a>
+                    er den begyndt ikke at kunne indsamle de allokerede objekter igen. Hvorfor? Who knows. Selv efter at bruge adskillige <code>using</code> med alle objekter
+                    som implimentere <code>IDisposable</code>, så jeg ingen forskæl. Set på billedet nedenunder, så kan vi se at det er en ret høj mængde RAM brugt. 
+                    (alle test består af at genstarte LoginService, og lave 20.000 POST request til den, igennem MicroServicesProxy). Jeg bruger et program jeg selv
+                    har lavet, til at teste API'et.
+                </p>
+                <img src="leak1.png">
+                <br>
+                <p>
+                    Ok, hvad kan vi så gøre? Én ting jeg tænkte at man kunne gøre, ville være at bruge <code>ValueTask&lt;T&gt;</code>, istedet for <code>Task&lt;T&gt;</code>.
+                    Grunden til denne beslutning er, at en <code>Task&lt;T&gt;</code> bliver allokeret på heap, og en <code>ValueTask&lt;T&gt;</code> bliver allokeret
+                    på stack. Ved at allokere på stack istedet for heap, er allokationen by-default hurtigere. Hvis vi laver en <code>ValueTask&lt;T&gt;</code> asynkront,
+                    så oprettere runtime en <code>Task&lt;T&gt;</code>, og returnere <code>Task&lt;T&gt;</code> objektet derefter. Men hvis vi awaiter en <code>ValueTask&lt;T&gt;</code>,
+                    så får vi returneret resultatet direkte, istedet for at returnere en <code>Task&lt;T&gt;</code> med resultatet. (Lige en hurtig bemærkning at man normalt 
+                    først ser bedre resultater med en <code>ValueTask&lt;T&gt;</code> når man rammer over 100k requests. Kilde: ejene tests.). Ok, tid til at se resultatet.
+                </p>
+                <img src="leak2.png">
+                <br>
+                <p>
+                    Hhmm...
+                </p>
+                <p>
+                    Altså, der bliver allokeret lidt mindre. Dog stadig over de 800 MB allokeret. Hvis min microservice havde et datacenter for sig selv, så ville dette ikke
+                    være et problem. Men nu køre jeg på et ret begrænset budget, og jeg har kun 3000 Mb til rådighed på hele maskinen. Det indkludere også andre services.
+                    Services så som en proxy service, database service, message service, logging service og så login service. Og alle skal deles om den samme mængde RAM.
+                    Men hvad kan vi så gøre? Enkelt; vi implimentere <code>IDisposable</code> i alle modeller som vi bruger i LoginService, og så bagefter køre
+                    <code>.dispose</code> når vi er færdig med at bruge objektet. Resultatet. . .
+                </p>
+                <img src="leak3.png">
+                <br>
+                <p>
+                    Yeahhh. . . Ikke det bedste resultat. Hvis servicen skulle håndtere flere millioner af requests ville man nok kunne se en forskæl. Eller er 
+                    det bare margin of error. Grunden til at implimentere IDisposable i modellerne var, at så der kun ville være managed objekter i den klasse,
+                    som faktisk skaber det memoryleak: DatabaseHandler. Måske bliver objekterne bare ikke samlet, selv efter at kalde <code>.Dispose</code>.
+                    Jeg kom i tanke om, at Aspnet Core programmer bruger <code>ServerGarbageCollection</code> by-default. Det som den garbage collecter gør,
+                    er at den prioitere CPU, frem for RAM. Så den vil garbage collecte med meget mindre hyppighed, en <code>WorkstationGarbageCollection</code>.
+                    <code>ServerGarbageCollection</code> er stik modsat af <code>ServerGarbageCollection</code>, da den prioitere RAM over CPU, da en server
+                    for det meste har mere RAM end en normal workstation computer. Og ved at skifte til <code>WorkstationGarbageCollection</code>, ser vi
+                    resultaterne: 
+                </p>
+                <img src="leak4.png">
+                <br>
+                <p>
+                    Ikke skidt ikke skidt. Og det er endda efter 20k POST requests. Lad os prøve med 50k.
+                </p>
+                <img src="leak5.png">
+                <br>
+                <p>
+                    BTW dette er mit CPU forbrug under alle test. <code>AMD Ryzen 9 3950X</code> for the win.
+                </p>
+                <img src="cpuUsage.png">
+                <br>
+                <p>
+                    Og dette er LoginService processen under test.
+                </p>
+                <img src="cpuUsage2.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 14.</a></li>
+                    <li><a href="sources.html">Microservices 15.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>RabbitMq Og Docker(igen?)</h1>
+                <p>
+                    RabbitMq er en async messaging queue, som køre i et Docker image. Det jeg bruger RabbitMq til, i mit projekt,
+                    er til at logge, hvis der sker en fejl i min microservices. Mine microservices fungere som en producer. Jeg 
+                    har lavet et program, som skal modtage beskederne fra RabbitMq. Altså en consumer. Det er basically producer/consumer
+                    pattern der bliver brugt, når man bruger Rabbitmq. Min consumer er ikke helt færdig endnu, men tanken er, at
+                    den skal gemme fejlene, til en NoSql database. For at bruge RabbitMq, kræver det at jeg laver en docker-compose.yml
+                    fil, som generere en Docker image, vi kan bruge. 
+                </p>
+                <p>
+                    Set i billedet nedenunder, så er det en docker-compose fil. <code>version: '3.8'</code> specificere RabbitMq versionen.
+                    <code>services:</code> definere de services, vi har i denne docker-compose fil. Man kan lave flere Docker images ud fra
+                    én docker-compose fil. <code>rabbitmq:</code> definere hvordan vores RabbitMq service skal bestå af. <code>container_name:</code> 
+                    giver lidt sig selv. <code>image:</code> specificere hvilket Docker image og version vi skal bruge. <code>environment: </code>
+                    bestemer vores bruger og kode til RabbitMqs management UI, og dens queue. <code>ports:</code> definere hvilke porte Docker
+                    skal tilade at åbne. <code>networks: </code> specificere det netwærk interface, dette Docker image skal bruge. <code>default:</code> 
+                    referere til det netwærk variable, vi laver længere nede i filen. <code>aliases:</code> specificere, hvilken host ens producer
+                    og consumer skal bruge.
+                </p>
+                <p>
+                    <code>networks:</code> er en variable, som fortæller Docker hvilket netwærk der skal bruges, og dets detaljer. <code>default:</code> 
+                    er bare et navn vi giver netwærket. <code>name:</code> er navnet på det Docker network, vi har lavet i en 
+                    <a href="https://rbwr.dk/Fourth_Semester/dockerAndServices2.html">tidligere blog post</a>. <code>external:</code> fortæller Docker, 
+                    at det Docker network, er ekstern, og ikke noget som bliver lavet internt i dette Docker image. Efter at man har lavet sin 
+                    docker-compose.yml fil, køre man kommandoen: <code>sudo docker-compose up</code>, hvorefter den så vil downloaded RabbitMq
+                    og lave et image ud fra det. Docker vil så derefter køre det Docker image, vi lige har lavet.
+                </p>
+                <img src="rabbitmq.png">
+                <p>
+                    Hvordan bruger vi så RabbitMq? Nemt. Jeg har lavet en klasse, hvor jeg har én enkel metode som håndtere at sende data over vores
+                    queue. Som set i billedet nedenunder, so har vi på linje 15 en metode, som når kaldt, vil queue den besked vi giver den. på
+                    linje 20 bruger vi en factory, som vil give os adgang til vores queue. Jeg har valg at give min message string og en DateTime, 
+                    da jeg tænker at det ville være en god idé at kunne se, hvornår fejlen opstod. På linje 27 laver vi en forbindelse, som bliver 
+                    brugt til at forbinde til vores queue. På linje 29 vi laver en kanal, hvor vi kommunikere over. Og siden json er ret nem at arbejde 
+                    med, skal vi også serialize vores besked. Det gør vi på linje 33. Da RabbitMq sender binær data, og ikke json, skal vi encode
+                    vores json besked til at være i binær format. På linje 36 publisher vi vores besked.
+                </p>
+                <img src="rabbitmq2.png">
+                <p>
+                    Ok. Nu har vi en måde at sende data over en queue. Men hvordan modtager vi beskederne? Det gør vi med det consumer program, jeg 
+                    har lavet. Som set i billedet nedenunder, så er det ret enkelt, at lave en RabbitMq consumer. Denne consumer ligner meget vores
+                    producer, siden at de deler så meget kode. Den største forskæl er fra linje 22 til 29. På linje 22 laver vi en consumer, hvor
+                    vi modtager en besked på linje 24, som er i binær format. På linje 25 encoder vi vores binær data til en normal string.
+                    Linje 29 consumer vi beskeden fra queuen, og sender en acknowledge til RabbitMq, at beskeden er blevet læst. Det sjove her,
+                    er at så længe at man ikke stopper programmet, så vil den blive ved med at consume beskeder, selvom at intet af dette kode
+                    er i en eller anden form for loop.
+                </p>
+                <img src="rabbitmq3.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 10.</a></li>
+                    <li><a href="sources.html">Microservices 11.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>
