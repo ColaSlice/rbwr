@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link type="text/plain" rel="author" href="humans.txt">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="index.html"><h1>RBWR</h1></a>
+                <a href="about.html" class="MarginLeft">About</a>
+                <a href="LearningForThisSemester.html" class="MarginLeft">4. Sem</a>
+            </div>
+        </header>
+            <div class="bodyBox">
+                <hr class="hr4">
+                <!-- Content starts here -->
+                
+                <div class="CenterDiv2">
+                    <h2><a href="Projects/BoilerPlateCommandsForLinuxDesktop.html">Some changes I Usually Do When Installing Linux</a></h2>
+                    <h3>Nano go brrrr</h3>
+                </div>
+
+                <div class="CenterDiv2">
+                    <h2><a href="Projects/SettingUpAPIs.html">Creating an API</a></h2>
+                    <h3>Bottom Text</h3>
+                </div>
+
+                <div class="CenterDiv2">
+                    <h2><a href="Projects/SettingUpVPS.html">Setting Up My VPS And Website</a></h2>
+                    <h3>And More</h3>
+                </div>
+                
+                <!-- Content ends here -->
+                <hr class="hr4Reversed">
+            </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>
