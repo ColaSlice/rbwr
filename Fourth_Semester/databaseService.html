@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../Fourth_Semester/sources.html" class="MarginLeft">Kilder</a>
+                <a href="../LearningPlans.html" class="MarginLeft">Læringsplaner</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Database service og LiteDB</h1>
+                <p>
+                    Nu når jeg har fået lavet en message service, til min microservice, tænkte jeg at det ville være en god ide at kunne gemme og læse de beskeder,
+                    som bliver sendt frem og tilbage. Jeg ville også gerne kunne gemme fejl logs i databasen, da jeg tænker at det ville være en god ide, skulle
+                    der ske en fejl. Set i koden neden under, har jeg to POST metoder, som kan blive kald af de andre services, jeg har kørende. 
+                    <code>SaveLog(LogDto logDto)</code> tager imod en dto (Data Transfer Objekt) som indeholder en fejlbesked, og et timestamp.
+                    <code>SaveMessage(MessageDto messageDto)</code> gør det samme som <code>SaveLog(LogDto logDto)</code>, men bare med en besked fra en bruger,
+                    istedet for en fejlbesked. <code>messageDto</code> indeholder en email fra personen, som beskeden skal sendes til, en email fra personen som
+                    sender beskeden, en besked og et timestamp.
+                </p>
+                <p>
+                    På linje 42 og linje 50 køre vi en metode fra DatabaseHandler klassen (<code>.Save()</code>), hvor vi kan give den nogle argumenter.
+                    Det første argument bestemmer hvilken type af besked, metoden skal gemme. Den første (<code>.Save()</code>) vi køre, gemmer en logDto. Det 
+                    første argument bestemmer hvilken type af besked der bliver gemt. Det anded argument og tredje argument sender bare dataen videre til metoden.
+                </p>
+                <img src="database1.png">
+                <br>
+                <p>
+                    I billedet neden under, har vi to <code>if</code> statements, hvor vi tjekker om det er en log eller besked, som skal gemmes. På linje 20
+                    laver ve en ny forbindelse til "Logs" databasen. "Logs" er en variable for <code>private const string Logs = @"Logs.db";</code>. På linje 22
+                    laver vi en collection. Hvis den specificerede collection allerede findes, bruger vi den, men hvis den ikke allerede eksistere, så laver vi en 
+                    ny. <code>&lt;LogDto&gt;</code> fortæller LiteDB hvilket format dataen skal gemmes i. Og siden at LogDto er en model, med et par properties, kan
+                    LiteDB opstille en NoSql database fil ud fra de properties.
+                </p>
+                <p>
+                    <code>(LogsCollection)</code> er hvilken collection vi skal gemme til. LiteDB kan havde så mange collections per database, som man har brug for.
+                    Det betyder at vi kan have flere forskællige typer af logs. Vi kunne f.eks have logs til fejl, logs til events, logs til respons times, etc. Ret
+                    smart. På linje 24 indsætter vi dataen fra vores logDto. Jeg har sat et udråpstegn is slutningen af <code>logDto!</code>, da dotnet language server
+                    (også kaldet Intelisense) råber af mig, at den tror logDto måske er null, men når vi kommer ind i det <code>if</code> statement, så er logDto ikke null.
+                </p>
+                <p>
+                    Og på linje 26 indexer vi logDto med <code>Timestamp</code> som index, hvis logDto ikke allerede er indexeret.
+                </p>
+                <img src="database2.png">
+                <p>
+                    På billedet under, ser vi en metode, som henter beskeder ud fra en specifik query. På linje 60 køre vi en metode <code>collection.Query()</code>, som
+                    returnere et "LiteQueryable" objekt, der gør at vi kan lave nogle lidt mere komplekse queries. På linje 61 køre vi en extension metode, som finder alle
+                    beskeder i databasen <code>x.ToUser</code>, der har samme værdi som "toUser". På linje 62 laver vi det om til en liste. På linje 63 til 66 lavede jeg noget
+                    debug kode, hvor der bliver læst igennem listen med beskeder, og printet til terminalen. Dette kode er blevet fjernet.
+                </p>
+                <img src="database3.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 16.</a></li>
+                    <li><a href="sources.html">Microservices 17.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

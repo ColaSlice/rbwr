@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../Fourth_Semester/sources.html" class="MarginLeft">Kilder</a>
+                <a href="../LearningPlans.html" class="MarginLeft">Læringsplaner</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>useState</h1>
+                <p>
+                    Denne blog post bygger videre på viden fra et <a href="https://rbwr.dk/Fourth_Semester/useEffect.html">tidligere blogpost</a> jeg lavede.
+                </p>
+                <p>
+                    useState er en af de mest brugte React hooks der findes. Den bruges til at implementere advanceret logik, uden at skrive den
+                    advanceret logik. Ved at deklarere en stat <code>const [name, setName] = useState("Steve Jobs")</code>, kan man lave en variable,
+                    som indeholder en state, og en metode til at modificere den state. "Steve Jobs" er den initialiseret værdi, som staten starter ud med.
+                    På billedet under, laver vi to stater, som begge har værdien <code>false</code>.
+                </p>
+                <img src="useState.png">
+                <p>
+                    På billedet under, ser vi på linje 37 og 38, hvor vi sætter staten <code>isLoading</code> til at være false, og <code>isLogged</code>
+                    til at være true.
+                </p>
+                <img src="useState3.png">
+                <p>
+                    Når koden bliver kørt igennem igen, bliver de to stater tjekket, og vi kommer nu ned i det <code>if</code> statement på linje 18 i 
+                    billede under.
+                </p>
+                <img src="useState2.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">React.js 18.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>
