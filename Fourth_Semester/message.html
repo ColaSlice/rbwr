@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../Fourth_Semester/sources.html" class="MarginLeft">Kilder</a>
+                <a href="../LearningPlans.html" class="MarginLeft">Læringsplaner</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>React Beskedside</h1>
+                <p>
+                    Det har taget noget tid, men nu har jeg fået sat en enkel side op, hvor man kan skrive med andre. Lige nu
+                    er det hardcoded, hvem der kan skrives med, men selve funktionaliteten er der. Som set i billedet under,
+                    har vi en simpel side, hvor man kan se beskeder (ændringer til siden kan forekomme senere). Når man åbner
+                    siden, bliver alle ens beskeder hentet fra min microservice. Hvorefter man kan skrive en besked, og trykke
+                    send, hvorefter den ville dukke op i listen.
+                </p>
+                <img src="b1.png">
+                <p>
+                    Som på billedet under, kan vi se metoden, hvor vi sender beskederne. Lige nu, så er alle data hardcoded, ud over
+                    selve beskeden. Når man trykker på send knappen, vi værdien <code>isSending</code> blive sat til <code>true</code>,
+                    hvor resten af koden kan blive ramt, og sende beskeden. På linje 27 sender vi selve dataen til min microservice
+                    der lytter på subdomænet "api" til min blogside "rbwr.dk". Hvorefter at vi får et svar tilbage, sætter vi
+                    <code>isSending</code> til at være <code>false</code>, og <code>isLoading</code> til at være <code>true</code>
+                </p>
+                <p>
+                    Det gør vi, så koden som henter beskederne kan blive ramt igen.
+                </p>
+                <img src="b2.png">
+                <p>
+                    Koden som henter beskederne er igen lidt hardcoded, men det vil blive ændret snart. <code>setTempMessage</code> er
+                    et array, som indeholder alle beskeder sendt, i dette tilfælde, til bruger "a".
+                </p>
+                <img src="b3.png">
+                <p>
+                    Som set på linje 56, køre vi en metode <code>SetSendingTrue</code>, når knappen bliver trykket. Den gøre, det som
+                    er blevet beskrevet længere oppe i dette blogopslag, så beskederne kan blive hentet. På linje 51 køre vi en metode,
+                    der laver alle beskederne fra <code>tempMessage</code> om til HTML <code>&lt;li&gt;&lt;/li&gt;</code> liste elementer,
+                    som bliver vist på det øverste billede.
+                </p>
+                <img src="b4.png">
+                <p>
+                    Det er egentlig meget ligetil. På linje 5 tager jeg array dataen fra <code>tempMessage</code>, og ligger det ind i et array.
+                    Grunden til det er, at hvis man bruger variabler fra en parameter, som vil datatypen være <code>any</code>, som jeg ikke 
+                    rigtig kan bruge i den form. Det er stadig tæknisk et array, da dataen i <code>tempMessage</code> er i array format, i
+                    den klasse, som kalder metoden <code>MessageHandler</code>.
+                </p>
+                <p>
+                    Fra linje 7 til 9 har vi et for loop, hvor vi læser dataen i arrayet, og ligger det ind i liste elementet. Når det er gjort,
+                    så returnere vi arrayet med liste elementer.
+                </p>
+                <img src="b5.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">React.js 19.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

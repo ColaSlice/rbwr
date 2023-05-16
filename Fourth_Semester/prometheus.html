@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Rasmus Rasmussen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    
+    <body>
+        <header>
+            <div class="FlexDirection">
+                <a href="../index.html"><h1>RBWR</h1></a>
+                <a href="../about.html" class="MarginLeft">About</a>
+                <a href="../Fourth_Semester/sources.html" class="MarginLeft">Kilder</a>
+                <a href="../LearningPlans.html" class="MarginLeft">Læringsplaner</a>
+            </div>
+        </header>
+        <div class="bodyBox">
+        <hr class="hr4">
+        <!-- Content starts here -->
+
+        <div class="CenterDiv2">
+            <div class="Test">
+                <h1>Prometheus Og Grafana</h1>
+                <p>
+                    Prometheus og Grafana. To vigtige teknologier indenfor microservice-verdenen. Prometheus er et open source-værktøjssæt 
+                    til overvågning og alarmering af systemer. Det har en ret basic UI, hvilket er grunden til at bruge Grafana. Man giver
+                    Prometheus noget systemforbrugs-data, og grafana kan automatisk opfange dataen fra Prometheus. Prometheus bliver 
+                    mest brugt på samme system, som Grafana køre på, data Prometheus ikke har nogen login- eller registreringsfunktion.
+                    Som set på billedet under, har jeg lavet to grafer i Grafana.
+                </p>
+                <img src="g1.png">
+                <p>
+                    For at køre Prometheus i en Docker container, skal bi bruge to filer. En docker-compose.yml fil og en prometheus.yml
+                    fil. Her er de to filer jeg bruger <a href="https://github.com/ColaSlice/MicroServices/blob/main/Prometheus/docker-compose.yml">docker-compose.yml</a>
+                    og <a href="https://github.com/ColaSlice/MicroServices/blob/main/Prometheus/prometheus/prometheus.yml">prometheus.yml</a>.
+                    På billedet under, på linje 2 sætter vi en interval, der bestemmer hvor ofte Prometheus skal læse dataen fra /metrics endpoint, 
+                    som vi indsætter data i, fra proxy servicen fra min microservice.
+                </p>
+                <p>
+                    På linje 3 sætter vi en timeout, der specificere hvor lang tid Prometheus skal vente, hvis den ikke kan finde noget data på /metrics.
+                    På linje 9 og 13 læser vi dataen fra vores /metrics endpoint. Noget hurtigt info, Jeg kunne ikke få Prometheus til at læse 
+                    fra /metrics igennem det Docker Network alle services jeg har lavet, køre på. Så jeg bruger bare IP'en fra min VPS, hvor microservicen
+                    køre på. Og det lader til at virke.
+                </p>
+                <img src="g2.png">
+                <p>
+                    Nu er det tid til at sætter Grafana op. Først er der et par programmer, som skal installeres. Det første man altid gør. er at køre
+                    <code>sudo apt update</code>, for at updatere den lokale package database. Efter det er gjort, så kør:
+                </p>
+                <code>sudo apt-get install -y apt-transport-https</code>
+                <br>
+                <code>sudo apt-get install -y software-properties-common wget</code>
+                <br>
+                <code>sudo wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key</code>
+                <p>
+                    Hvis du gerne vil bruge den stabile version, så kør: <code>echo "deb [signed-by=/usr/share/keyrings/grafana.key] https://apt.grafana.com stable main" 
+                    | sudo tee -a /etc/apt/sources.list.d/grafana.list</code>. Så kør <code>sudo apt update</code> igen. Til sidst, installer Grafana med kommandoen:
+                    <code>sudo apt-get install grafana</code>. Dette vil installere den open source version.
+                </p>
+                <p>
+                    Nu er det tid til faktisk at bruge Grafana. Åben din browser og skriv <code>https://localhost:3000</code>, og den burde automatisk 
+                    åbne Grafana. Standard bruger og kode er "admin". Får at hente dataen fra Prometheus, skal man trykke på burger menuen øverst til venstre -->
+                    Connections --> Your connections --> Data sources, og så tryk på "+ Add new data source" øverst til højre. Du ville ramme
+                    en side som såddan vist på billedet under.
+                </p>
+                <img src="g3.png">
+                <p>
+                    Når man trykker på "Prometheus" knappen, dukker der en side om med en god mængde indstillinger, som set på billedet under. Den eneste 
+                    ændring jeg gjorde mig, var at ændre port 9090 til 9000. Så handler det bare om at opsætte nogle dashboards I Grafana.
+                </p>
+                <img src="g5.png">
+                <p>
+                    Lige et indblik i, hvordan det kan se ud, når jeg stess tester min microservice, visualiseret i Grafana.
+                </p>
+                <img src="g4.png">
+                <br>
+                <ol>
+                    <li><a href="sources.html">Microservices 20.</a></li>
+                    <li><a href="sources.html">Microservices 21.</a></li>
+                    <li><a href="sources.html">Microservices 22.</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Content ends here -->
+        <hr class="hr4Reversed">
+    </div>
+        <footer>
+            <div class="FlexDirection">
+                <h1>RBWR</h1>
+            </div>
+        </footer>
+    </body>
+</html>

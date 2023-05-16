@@ -49,16 +49,26 @@
                 <h3>React.js</h3>
                 <ul>
                     <label>Hvordan</label>
+                    <li>Ved at hente beskeder fra et API hvert 30-40 sekunder, og ved at sende en besked til et API, kan man lave en virkene chat.</li>
+                    <li>Ved at udpakke JWT token til en cookie, og læse cookie dataen der fra, og ved at lave den data om til HTML vendlig data, kan man vise dataen på siden.</li>
+                    <li>Ved at ændre lidt i microservicen, kan man gøre sådan, at det kun er email, og kodeord man behøver at sende.</li>
                 </ul>
                 <ul>
                     <label>Evaluering</label>
+                    <li>Dette punkt var mere besværlig at få implimenteret, da selve UI elementet skal se ud på en specifik måde. Men jeg har fået backend delen sat op, så det er 50% godkendt.</li>
+                    <li>Det var overaskende nemt, da alt jeg skulle gøre, var at udpakke JWT token, og gemt det i en cookie. Det hele virker, så det er godkendt.</li>
+                    <li>Igen, overaskende nemt, da jeg faktisk ikke behøver at læse brugernavnet på et API level. Så ved at skifte til at læse Email navnet istedet, så er dette punkt godkendt.</li>
                 </ul>
                 <h3>Microservices</h3>
                 <ul>
                     <label>Hvordan</label>
+                    <li>Ved at lave mappen med SSL certifikaterne om til en volume til Docker, kan aspnet læse certifikaterne.</li>
+                    <li>Ved at lave et endpoint i API'et, der indeholder målbare data fra Prometheus. Og ved at oprette et Docker-Compose fil for Prometheus, og køre Prometheus, kan det blive integreret.</li>
                 </ul>
                 <ul>
                     <label>Evaluering</label>
+                    <li>Det var mere besværligt end forventet, og tog for lang tid til at researche.</li>
+                    <li>Det eneste i dette punkt, der var for besværligt var Docker Compose, var det ret lige til at få implimenteret. Godkendt.</li>
                 </ul>
             </div>
         </div>
